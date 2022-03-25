@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Результаты{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('framework/bootstrap-4.4.1-dist/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset ('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="container" >
+        <div class="row no-gutters">
+            <div class="col-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Игрок 1</th>
+                        <th scope="col">Игрок 2</th>
+                        <th scope="col">Победитель</th>
+                        <th scope="col" style="text-align: center">Ходы</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for game in games %}
+                    <tr>
+                        <td>
+                            {{ game.id }}
+                        </td>
+                        <td>
+                            {% for key,val in first_player %}
+                                {% if key == game.id %}
+                                    {{ val.name }}
+                                {% endif %}
+                            {% endfor %}
+
+                        </td>
+                        <td>
+                            {% for key,val in second_player %}
+                                {% if key == game.id %}
+                                  {{  val.name }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for key,val in winner %}
+                                {% if key == game.id %}
+                                    {{  val.name }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                       {# {% endfor %}#}
+                        <td>
+                            {% for key,value in values %}
+                                {% if key == game.id %}
+                            <div class="row no-gutters justify-content-center align-items-center">
+                                <table class="field mt-3" style="font-size: 30px">
+
+                                    <tr>
+                                        <td>{% if value['A1'] is defined  %} {{ value['A1']}}{% else %} {% endif %}</td>
+                                        <td>{% if value['B1'] is defined  %} {{ value['B1']}}{% else %} {% endif %}</td>
+                                        <td>{% if value['C1'] is defined  %} {{ value['C1']}}{% else %} {% endif %}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{% if value['A2'] is defined  %} {{ value['A2']}}{% else %} {% endif %}</td>
+                                        <td>{% if value['B2'] is defined  %} {{ value['B2']}}{% else %} {% endif %}</td>
+                                        <td>{% if value['C2'] is defined  %} {{ value['C2']}}{% else %} {% endif %}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>{% if value['A3'] is defined  %} {{ value['A3']}}{% else %} {% endif %}</td>
+                                        <td>{% if value['B3'] is defined  %} {{ value['B3']}}{% else %} {% endif %}</td>
+                                        <td>{% if value['C3'] is defined  %} {{ value['C3']}}{% else %} {% endif %}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
+

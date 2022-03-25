@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Приглашение в игру{% endblock %}
+
+{% block body %}
+    <!-- Modal -->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Приглашение отправлено игроку</h5>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ path('user')}}" class="btn btn-primary">Вернутся к списку Игроков</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

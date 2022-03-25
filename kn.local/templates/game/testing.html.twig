@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('framework/bootstrap-4.4.1-dist/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset ('css/style.css') }}">
+    {% endblock %}
+
+
+{% block title %}Игра с компьютером{% endblock %}
+
+{% block body %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}    {#На страницу попадают только авторизованные пользователи#}
+
+        <div class="container ">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            <div class="row no-gutters justify-content-center align-items-center">
+                <table class="field mt-3" style="font-size: 60px">
+
+                        <tr>
+                            <td><a id="A1" href="{{ path('game_test', {'cell':'A1'})  }}">{% if values['A1'] is defined %} {{ values['A1']}}{% else %}&nbsp;{% endif %}</a></td>
+                            <td><a id="B1" href="{{ path('game_test', {'cell':'B1'})  }}">{% if values['B1'] is defined  %} {{ values['B1']}}{% else %}&nbsp;{% endif %}</a></td>
+                            <td><a id="C1" href="{{ path('game_test', {'cell':'C1'})  }}">{% if values['C1'] is defined  %} {{ values['C1']}}{% else %}&nbsp;{% endif %}</a></td>
+                        </tr>
+                        <tr>
+                            <td><a id="A2" href="{{ path('game_test', {'cell':'A2'})  }}">{% if values['A2'] is defined %}{{ values['A2']}}{% else %}&nbsp;{% endif %}</a></td>
+                            <td><a id="B2" href="{{ path('game_test', {'cell':'B2'})  }}">{% if values['B2'] is defined %}{{ values['B2']}}{% else %}&nbsp;{% endif %}</a></td>
+                            <td><a id="C2" href="{{ path('game_test', {'cell':'C2'})  }}">{% if values['C2'] is defined %}{{ values['C2']}}{% else %}&nbsp;{% endif %}</a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a id="A3" href="{{ path('game_test', {'cell':'A3'})  }}">{% if values['A3'] is defined %}{{ values['A3']}}{% else %}&nbsp;{% endif %}</a></td>
+                            <td><a id="B3" href="{{ path('game_test', {'cell':'B3'})  }}">{% if values['B3'] is defined %}{{ values['B3']}}{% else %}&nbsp;{% endif %}</a></td>
+                            <td><a id="C3" href="{{ path('game_test', {'cell':'C3'})  }}">{% if values['C3'] is defined %}{{ values['C3']}}{% else %}&nbsp;{% endif %}</a></td>
+                        </tr>
+                </table>
+
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}
+

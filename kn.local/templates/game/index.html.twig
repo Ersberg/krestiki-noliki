@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('framework/bootstrap-4.4.1-dist/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset ('css/style.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script>
+        //Скрипт для обновления страницы по временному интервалу, чтобы вручную не обновлять страницу
+        {% if checkWin is null %} //Пока победитель не выявлен страница продолжает обновлятся, для показа совершенных ходов
+            function alerted() {
+                location.reload()
+            }
+            setTimeout(alerted, 10000);
+        {% endif %}
+    </script>
+
+{% endblock %}
+
+{% block title %}Игра с другим игроком{% endblock %}
+
+{% block body %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}    {#На страницу попадают только авторизованные пользователи#}
+
+        <div class="container ">
+            <div class="mb-3">
+                {% if id == playerFirst.id %}
+                    <strong style="font-size: large">Играем с игроком - {{ playerSecond.name }} ({{ playerSecond.email }})</strong>
+                {% else %}
+                    <strong style="font-size: large">Играем с игроком - {{ playerFirst.name }} ({{ playerFirst.email }})</strong>
+                {% endif %}
+            </div>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+
+
+            <div class="row no-gutters justify-content-center align-items-center">
+
+                <table class="field mt-3"  style="font-size: 60px" id="tab" >
+
+                    <tr>
+                        <td><a id="cell" onclick="alerted();" href="{{ path('game_step', {'game_place_id':game_place_id,'cell':'A1'})  }}">{% if values['A1'] is defined  %} {{ values['A1']}}{% else %}&nbsp;{% endif %}</a></td>
+                        <td><a id="cell" onclick="alerted();" href="{{ path('game_step', {'game_place_id':game_place_id,'cell':'B1'})  }}">{% if values['B1'] is defined  %} {{ values['B1']}}{% else %}&nbsp;{% endif %}</a></td>
+                        <td><a id="cell" onclick="alerted();" href="{{ path('game_step', {'game_place_id':game_place_id,'cell':'C1'})  }}">{% if values['C1'] is defined  %} {{ values['C1']}}{% else %}&nbsp;{% endif %}</a></td>
+                    </tr>
+                    <tr>
+                        <td><a id="cell" onclick="alerted();" href="{{ path('game_step', {'game_place_id':game_place_id,'cell':'A2'})  }}">{% if values['A2'] is defined %}{{ values['A2']}}{% else %}&nbsp;{% endif %}</a></td>
+                        <td><a id="cell" onclick="alerted();" href="{{ path('game_step', {'game_place_id':game_place_id,'cell':'B2'})  }}">{% if values['B2'] is defined %}{{ values['B2']}}{% else %}&nbsp;{% endif %}</a></td>
+                        <td><a id="cell" onclick="alerted();" href="{{ path('game_step', {'game_place_id':game_place_id,'cell':'C2'})  }}">{% if values['C2'] is defined %}{{ values['C2']}}{% else %}&nbsp;{% endif %}</a></td>
+
+                    </tr>
+                    <tr>
+                        <td><a id="cell" onclick="alerted();" href="{{ path('game_step', {'game_place_id':game_place_id,'cell':'A3'})  }}">{% if values['A3'] is defined %}{{ values['A3']}}{% else %}&nbsp;{% endif %}</a></td>
+                        <td><a id="cell" onclick="alerted();" href="{{ path('game_step', {'game_place_id':game_place_id,'cell':'B3'})  }}">{% if values['B3'] is defined %}{{ values['B3']}}{% else %}&nbsp;{% endif %}</a></td>
+                        <td><a id="cell" onclick="alerted();" href="{{ path('game_step', {'game_place_id':game_place_id,'cell':'C3'})  }}">{% if values['C3'] is defined %}{{ values['C3']}}{% else %}&nbsp;{% endif %}</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}

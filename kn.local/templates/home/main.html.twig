@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+        {% for message in app.flashes('success') %}   {# Модальное окно с сообщением о приглашении на игру #}
+            <!-- Modal -->
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>{{ message }}</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ path('invite', {'act': 'accept', 'id': invite.0.id})}}" class="btn btn-primary">Принять</a>
+                        <a href="{{ path('invite', {'act': 'reject', 'id': invite.0.id} )}}" class="btn btn-danger">Отказ</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="example-wrapper">
+        <h1>Добро пожаловать в игру Крестики-Нолики! </h1>
+
+        <p>Крестики-Нолики - Логическая игра между двумя противниками на квадратном поле 3 на 3 клетки или большего размера.
+            Один из игроков играет «крестиками», второй - «ноликами».
+        </p>
+
+        <p>Чтобы сыграть в игру<a href="{{ path ('user') }}"> пригласите игрока,</a>  если приглашение уже отправлено, то пройдите на <a href="{{ path('main_game')}}"> страницу игры </a>,
+            Либо потренируйтесь сыграя с <a href="{{ path ('test') }}">компьютером</a>
+        </p>
+
+    {% endif %}
+
+
+{% endblock %}

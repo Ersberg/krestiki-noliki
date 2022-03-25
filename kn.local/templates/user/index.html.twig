@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row no-gutters justify-content-center">
+            <div class="col-12">
+                <h1 class="display-5 text-center mt-5">
+                    {{ title }}
+                </h1>
+            </div>
+            {% for message in app.flashes('danger') %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-12">
+                <table class="table table-hover">  {# Список пользователей которых можно пригласить в игру #}
+                    <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>
+                                <a href="{{ path('user_invite', {'id':user.id} )}}" class="btn btn-primary">Пригласить в игру</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
